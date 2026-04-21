@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Arinze Okafor",
+    "gender": "male",
+    "gender_probability": 0.99,
+    "age": 28,
+    "age_group": "young adult",
+    "country_id": "NG",
+    "country_name": "Nigeria",
+    "country_probability": 0.95
+  },
+  {
+    "name": "Sarah Jenkins",
+    "gender": "female",
+    "gender_probability": 0.98,
+    "age": 34,
+    "age_group": "adult",
+    "country_id": "US",
+    "country_name": "United States",
+    "country_probability": 0.92
+  },
+  {
+    "name": "Yuki Tanaka",
+    "gender": "non-binary",
+    "gender_probability": 0.45,
+    "age": 22,
+    "age_group": "young adult",
+    "country_id": "JP",
+    "country_name": "Japan",
+    "country_probability": 0.99
+  },
+  {
+    "name": "Elena Rodriguez",
+    "gender": "female",
+    "gender_probability": 0.99,
+    "age": 45,
+    "age_group": "middle-aged",
+    "country_id": "ES",
+    "country_name": "Spain",
+    "country_probability": 0.97
+  }
+]
