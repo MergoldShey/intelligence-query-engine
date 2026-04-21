@@ -88,13 +88,13 @@ app.get('/api/profiles/search', async (req, res) => {
 
         res.json({
             status: "success",
-            message: data.length === 0 ? "No profiles match your search criteria" : "Profiles retrieved successful",
+            message: data.length === 0 ? "No profiles match your search criteria" : "Profiles retrieved successfully",
             page: parseInt(page),
             limit: parseInt(limit),
             total: parseInt(totalResult.count),
             data
         });
-        
+
     } catch (error) {
         res.status(500).json({ status: "error", message: "Internal server error" });
     }
