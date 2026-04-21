@@ -1,3 +1,4 @@
+const { parseQuery } = require('./src/parser');
 const express = require('express');
 const cors = require('cors');
 const db = require('./db/db');
@@ -56,5 +57,47 @@ app.get('/api/profiles', async (req, res) => {
     }
 });
 
+// 2. Natural Language Search Endpoint
+app.get('/api/profiles/search', async (req, res) => {
+    const { q, page = 1, limit = 10 } = req.query;
+
+    if (!q) {
+        return res.status(400).json({ status: "error", message: "Missing query parameter 'q'" });
+    }
+
+    const filters = parseQuery(q);
+
+    if (!filters) {
+        return res.status(200).json({ status: "error", message: "Unable to interpret query" });
+    }
+
+    try {
+        let query = db('profiles');
+
+        // Apply parsed filters
+        if (filters.gender) query.where('gender', filters.gender);
+        if (filters.age_group) query.where('age_group', filters.age_group);
+        if (filters.country_id) query.where('country_id', filters.country_id);
+        if (filters.min_age) query.where('age', '>=', filters.min_age);
+        if (filters.max_age) query.where('age', '<=', filters.max_age);
+
+        const offset = (parseInt(page) - 1) * parseInt(limit);
+        const data = await query.clone().limit(parseInt(limit)).offset(offset);
+        const totalResult = await query.clone().count('id as count').first();
+
+
+        res.json({
+            status: "success",
+            message: data.length === 0 ? "No profiles match your search criteria" : "Profiles retrieved successful",
+            page: parseInt(page),
+            limit: parseInt(limit),
+            total: parseInt(totalResult.count),
+            data
+        });
+        
+    } catch (error) {
+        res.status(500).json({ status: "error", message: "Internal server error" });
+    }
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
