@@ -1,4 +1,4 @@
-# Intelligence Query Engine (Backend Wizard)
+# Intelligence Query Engine
 
 A specialized Node.js backend that serves demographic profiles and features a Natural Language Processing (NLP) search engine to query data using human-like phrases.
 
